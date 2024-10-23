@@ -1,25 +1,23 @@
-import { useEffect, useState } from "react"
-import {getNonStaffUsers} from "../../services/userService"
-import "./customers.css"
+import { useEffect, useState } from "react";
+import { getNonStaffUsers } from "../../services/userService";
+import "./customers.css";
 
-import { User } from "../../users/User"
+import { User } from "../../users/User";
 
 export const CustomerList = () => {
-    const [customers, setCustomers] = useState([])
+  const [customers, setCustomers] = useState([]);
 
-    useEffect(() => {
-        getNonStaffUsers().then((customerArray) => {
-            setCustomers(customerArray)
-        })
-    }, [])
+  useEffect(() => {
+    getNonStaffUsers().then((customerArray) => {
+      setCustomers(customerArray);
+    });
+  }, []);
 
-    return (
-        <div className="customers">
-            {customers.map((customerObj) => {
-                return ( 
-                <User user={customerObj}/>
-                )
-            })}
-        </div>
-    )
-}
+  return (
+    <div className="customers">
+      {customers.map((customerObj) => {
+        return <User user={customerObj} key={customerObj.id} />;
+      })}
+    </div>
+  );
+};
