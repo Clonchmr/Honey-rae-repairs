@@ -37,7 +37,7 @@ export const EmployeeForm = ({ currentUser }) => {
           <label>Specialty:</label>
           <input
             type="text"
-            value={employee.specialty}
+            value={employee.specialty ? employee.specialty : ""}
             required
             className="form-control"
             onChange={(event) => {
@@ -53,7 +53,7 @@ export const EmployeeForm = ({ currentUser }) => {
           <label>Hourly Rate:</label>
           <input
             type="number"
-            value={employee.rate}
+            value={employee.rate ? employee.rate : 0}
             required
             className="form-control"
             onChange={(event) => {
