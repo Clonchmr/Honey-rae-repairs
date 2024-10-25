@@ -7,6 +7,7 @@ import { CustomerList } from "../Components/customers/CustomersList";
 import { CustomerDetails } from "../Components/customers/CustomerDetails";
 import { NavBar } from "../Components/Nav/NavBar";
 import { useEffect, useState } from "react";
+import { EmployeeForm } from "../Components/Forms/Form";
 
 export const ApplicationViews = () => {
   const [currentUser, setCurrentUser] = useState({});
@@ -42,6 +43,10 @@ export const ApplicationViews = () => {
           <Route index element={<CustomerList />} />
           <Route path=":customerId" element={<CustomerDetails />} />
         </Route>
+        <Route
+          path="profile"
+          element={<EmployeeForm currentUser={currentUser} />}
+        />
       </Route>
     </Routes>
   );
