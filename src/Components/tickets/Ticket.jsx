@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { getAllEmployees } from "../../services/employeeService";
-import { assignTicket, updateTicket } from "../../services/ticketService";
+import {
+  assignTicket,
+  deleteTicket,
+  updateTicket,
+} from "../../services/ticketService";
 
 export const Ticket = ({ ticket, currentUser, getAndSetTickets }) => {
   const [employees, setEmployees] = useState([]);
@@ -47,6 +51,12 @@ export const Ticket = ({ ticket, currentUser, getAndSetTickets }) => {
     });
   };
 
+  const handleDelete = () => {
+    deleteTicket(ticket.id).then(() => {
+      getAndSetTickets();
+    });
+  };
+
   return (
     <section className="ticket">
       <header className="ticket-info">#{ticket.id}</header>
@@ -63,20 +73,21 @@ export const Ticket = ({ ticket, currentUser, getAndSetTickets }) => {
           <div>{ticket.emergency ? "yes" : "no"}</div>
         </div>
         <div className="btn-container">
-          {currentUser.isStaff && !assignedEmployee ? (
+          {currentUser.isStaff && !assignedEmployee && (
             <button className="btn btn-secondary" onClick={handleClaim}>
               Claim
             </button>
-          ) : (
-            ""
           )}
           {assignedEmployee?.userId === currentUser.id &&
-          !ticket.dateCompleted ? (
-            <button className="btn btn-warning" onClick={handleClose}>
-              Close
+            !ticket.dateCompleted && (
+              <button className="btn btn-warning" onClick={handleClose}>
+                Close
+              </button>
+            )}
+          {!currentUser.isStaff && (
+            <button className="btn btn-warning" onClick={handleDelete}>
+              Delete
             </button>
-          ) : (
-            ""
           )}
         </div>
       </footer>
